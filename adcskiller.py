@@ -142,17 +142,15 @@ class Exploit:
                 self.__ldap_bind = ldap3.Connection(server, user=f'{self.__domain_parts[0]}\\{self.__username}', password=f'{self.__password}', auto_bind=True)
                 print(f'[+] Bind to {protocol}://{self.__target}:{server.port} successful\n')
                 return True
-            except ldap3.core.exceptions.LDAPSocketOpenError:
-                print(f'[-] Binding to {protocol}://{self.__target}:{server.port} failed\n')
             except ldap3.core.exceptions.LDAPBindError:
                 print(f'[-] Binding to {protocol}://{self.__target}:{server.port} failed, invalid credentials\n')
-                return False
+                continue
             except ldap3.core.exceptions.LDAPCertificateError:
                 print(f'[-] Binding to {protocol}://{self.__target}:{server.port} failed, SSL/TLS certificate validation error\n')
-                return False
+                continue
             except ldap3.core.exceptions.LDAPSocketOpenError:
                 print(f'[-] Binding to {protocol}://{self.__target}:{server.port} failed, connection timed out\n')
-                return False
+                continue
 
         return False
 
