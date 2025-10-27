@@ -1,2 +1,4 @@
 argparse
 ldap3
+certipy-ad
+coercer
